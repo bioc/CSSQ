@@ -1,0 +1,21 @@
+Package: CSSQ
+Title: Chip-seq Signal Quantifier Pipeline
+Version: 0.99.0
+Authors@R: 
+    person(given = "Ashwath",
+           family = "Kumar",
+           role = c("aut", "cre"),
+           email = "akumar301@gatech.edu",
+           comment = c(ORCID = "0000-0001-9106-6715"))
+Description: his package is desgined to perform statistical analysis to
+    identify statistically significant differentially bound regions between
+    multiple groups of ChIP-seq dataset. 
+License: Artistic-2.0
+Encoding: UTF-8
+biocViews: ChIPSeq, DifferentialPeakCalling,  Sequencing, Normalization
+Depends: SummarizedExperiment, GenomicRanges, IRanges, S4Vectors
+Imports: GenomicAlignments, GenomicFeatures, Rsamtools, ggplot2, grDevices, stats, utils
+Suggests: BiocStyle, knitr, rmarkdown
+VignetteBuilder: knitr
+LazyData: true
+RoxygenNote: 6.1.99.9001

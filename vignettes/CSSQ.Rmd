@@ -1,0 +1,112 @@
+---
+title: "ChIP-seq signal quantifier (CSSQ)"
+shorttitle: "CSSQ"
+package: CSSQ
+author:
+- name: Ashwath Kumar
+  affiliation: Georgia Institute of Technology, Atlanta, GA
+- name: Yajun Mei
+  affiliation: Georgia Institute of Technology, Atlanta, GA
+- name: Yuhong Fan
+  affiliation: Georgia Institute of Technology, Atlanta, GA
+  email: akumar301@gatech.edu
+vignette: |
+  %\VignetteIndexEntry{Introduction to CSSQ}
+  %\VignetteEngine{knitr::knitr}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup_knitr, include = FALSE, cache = FALSE}
+library(BiocStyle)
+# Decide whether to display parts for BioC (TRUE) or F1000 (FALSE)
+on.bioc <- TRUE
+library(knitr)
+# Use fig.width = 7 for html and fig.width = 6 for pdf
+fig.width <- ifelse(on.bioc, 8, 6)
+knitr::opts_chunk$set(cache = 2, warning = FALSE, message = FALSE, error = FALSE,
+  cache.path = "cache/", fig.path = "figure/", fig.width = fig.width)
+```
+# Introduction
+
+This vignette introduces the package Bioconductor package `r Biocpkg("CSSQ")`. This package is designed to perform differential binding analysis for ChIP-seq samples. Differential binding is when there is a significant difference in the signal intensities at a region between two groups. The idea behind CSSQ is to implement a statistically robust pipeline which is built for ChIP-seq datasets to identify regions of differential binding among a set of interesting regions. It contains functions to quantify the signal over a predefined set of regions from the user, transform the data, normalize across samples and perform statistical tests to determine differential binding. There is an ever-increasing number of ChIP-seq samples, and this opens the door to compare these binding events between two groups of samples. CSSQ does this while considering the signal to noise ratios, paired control experiments and the lack of multiple (>2) replicates in a typical ChIP-seq experiment. It controls the false discovery rates while not compromising in its sensitivity. This document will give a brief overview of the processing steps.
+
+# Processing summary
+
+The workflow for `CSSQ` is as follows
+
+1. Quantify regions of interest - A bed file with the regions of interest is used to count the number of reads aligning to these regions for the samples and their respective controls. 
+2. Data processing - The raw count data is used to perform background correction, data transformation and normalization across samples. 
+3. Identifying differential regions - The normalized count data is used to perform statistical tests to identify differentially bound regions. 
+
+# Example
+
+To use `CSSQ`, you will require a bed file containing the regions of interest as well as sample information file which contains the necessary information about the samples being analyzed. Below are examples of both files.  
+
+```{r}
+library(CSSQ)
+regionBed <- read.table(system.file("extdata", "chr19_regions.bed", package="CSSQ",mustWork = TRUE))
+sampleInfo <- read.table(system.file("extdata", "sample_info.txt", package="CSSQ",mustWork = TRUE),sep="\t",header=TRUE)
+head(regionBed)
+sampleInfo
+```
+
+`CSSQ` provides two options for obtaining raw count data used to perform the analysis. The first option is to ask `CSSQ` to count the reads and perform background correction. The following commands will perform the steps and return an object with count data and meta data.
+
+```{r}
+countData <- getRegionCounts(system.file("extdata", "chr19_regions.bed", package="CSSQ"),sampleInfo,sampleDir = system.file("extdata", package="CSSQ"))
+countData
+head(assays(countData)$countData)
+colData(countData)
+rowRanges(countData)
+```
+The second option is to provide `CSSQ` with the count data in a tab separated format. The count data given will directly be used in transformation and normalization steps and no background correction will be performed. 
+
+```{r}
+countData <- loadCountData(system.file("extdata", "sample_count_data.txt", package="CSSQ",mustWork = TRUE),system.file("extdata", "chr19_regions.bed", package="CSSQ"),sampleInfo)
+countData
+head(assays(countData)$countData)
+colData(countData)
+rowRanges(countData)
+```
+
+Anscombe transformation is then applied to the count data using the `ansTransform` function. This function also has an option parameter to plot the data distribution of the data before and after transformation. 
+
+```{r}
+ansCountData <- ansTransform(countData)
+ansCountData
+head(assays(ansCountData)$ansCount)
+```
+
+Anscombe transformed data is then normalized across samples. Normalization in `CSSQ` using the `normalizeData` function. It takes as input the number of clusters to use in the underlying k-means algorithm that is used in the normalization process. It is advised to choose the number of clusters by analyzing the data distribution. 
+
+```{r}
+normInfo <- normalizeData(ansCountData,numClusters=4)
+normInfo
+head(assays(normInfo)$normCount)
+```
+
+The normalized data is then used by the `DBAnalyze` function to perform statistical tests to identify differentially bound regions. `CSSQ` utilized non-parametric approaches to calculate the test statistics and to calculate the p-value from the test statistics. This is done due to prevalent trend observed in ChIP-seq datasets of not having more than two replicates. The resulting `GRanges` object from this function contains the Benjamini Hochberg adjusted P-value and a Fold change for each of the input regions. 
+
+```{r}
+result <- DBAnalyze(normInfo,comparison=c("HSMM","HESC"))
+result
+```
+
+For convenience, most of the above steps are wrapped in `preprocessData` function to perform them all at one go. All the above steps can be performed using the below commands. 
+
+```{r}
+#To let CSSQ calculate the counts
+processedData <- preprocessData(system.file("extdata", "chr19_regions.bed", package="CSSQ"),system.file("extdata", "sample_info.txt", package="CSSQ"),sampleDir = system.file("extdata", package="CSSQ"),inputCountData = "None",numClusters=4,noNeg=TRUE,plotData=FALSE)
+#To provide CSSQ with the counts 
+processedData <- preprocessData(system.file("extdata", "chr19_regions.bed", package="CSSQ"),system.file("extdata", "sample_info.txt", package="CSSQ"),inputCountData = system.file("extdata", "sample_count_data.txt", package="CSSQ",mustWork = TRUE),numClusters=4,noNeg=TRUE,plotData=FALSE)
+#To find differential binding sites
+result <- DBAnalyze(processedData,comparison=c("HSMM","HESC"))
+processedData
+result
+```
+# Session Info
+
+```{r}
+sessionInfo()
+```
+

@@ -1,0 +1,16 @@
+Obtaining the example bed file. 
+	1. The bed file used in the example is just a subset of a bigger file. 
+	2. The original GTF file can be downloaded at ftp://ftp.ensembl.org/pub/release-75/gtf/homo_sapiens/
+	3. A bed file is then made using the genes in the region 'chr19:1237177-1408567'. The start and start are changed to be 2kb around the TSS.
+	
+Obtaining the example bam files. 
+	1. The example bam files contain only the reads for the samples in the region 'chr19:1237177-1408567'. 
+	2. The entire bam files for the samples can be obtained from GEO. HSMM samples and controls are present in GSM733637 and GSM733663 IDs. HESC samples and controls are present in GSM733657 and GSM733770 IDs.
+	3. The bam files can be subset using samtools view command. 
+	
+Obtaining the "sample_count_data.txt".
+	1. Ran part of the CSSQ code up until getRegionCounts function. 
+	2. Saved the assay with the count data as the example count data file.
+	
+Obtaining the "sample_info.txt".
+	1. This file is manually made and needs to be made for every analysis with the relevant information. 
