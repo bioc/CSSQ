@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "akumar301@gatech.edu",
            comment = c(ORCID = "0000-0001-9106-6715"))
-Description: his package is desgined to perform statistical analysis to
+Description: This package is desgined to perform statistical analysis to
     identify statistically significant differentially bound regions between
     multiple groups of ChIP-seq dataset. 
 License: Artistic-2.0
