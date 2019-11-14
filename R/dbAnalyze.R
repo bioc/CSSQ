@@ -25,7 +25,7 @@
 #' sampleInfo <- read.table(system.file("extdata", "sample_info.txt", 
 #' package="CSSQ",mustWork = TRUE),sep="\t",header=TRUE)
 #' exCount <- matrix(c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16),nrow=4,ncol=4)
-#' exData <- SummarizedExperiment(assays = list(list(ansCount=exCount)),
+#' exData <- SummarizedExperiment(assays = list(ansCount=exCount),
 #' rowRanges=exRange,colData=sampleInfo)
 #' normExData <- normalizeData(exData,numClusters=2)
 #' res <- DBAnalyze(normExData,comparison=c("HSMM","HESC"))

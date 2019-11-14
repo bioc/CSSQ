@@ -34,6 +34,6 @@ loadCountData <- function(countFile,regionBed,sampleInfo) {
     regionList <- read.table(regionBed);
     regionRange <- GRanges(seqnames=regionList$V1,ranges=IRanges(start=regionList$V2,end=regionList$V3));
     countData <- read.table(countFile,sep="\t",header=TRUE);
-    analysisInfo <- SummarizedExperiment(assays = list(list(countData=countData)),rowRanges=regionRange,colData=sampleInfo);
+    analysisInfo <- SummarizedExperiment(assays = list(countData=countData),rowRanges=regionRange,colData=sampleInfo);
     return(analysisInfo);
 }

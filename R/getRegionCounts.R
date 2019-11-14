@@ -51,6 +51,6 @@ getRegionCounts <- function(regionBed,sampleInfo,sampleDir = ".",backgroundSubtr
         NormbgSubCounts <- data.frame(vapply(seq_len(nrow(colData(analysisInfo))),function(x) getBgSubVal(analysisInfo,sampleIndex = x,backgroundSubtract=backgroundSubtract,...),double(length(regionRange))));
     }
     colnames(NormbgSubCounts) <- colData(analysisInfo)[,1];
-    countData <- SummarizedExperiment(assays = list(list(countData=NormbgSubCounts)),rowRanges=rowRanges(analysisInfo),colData=colData(analysisInfo));
+    countData <- SummarizedExperiment(assays = list(countData=NormbgSubCounts),rowRanges=regionRange,colData=sampleInfo);
     return(countData);
 }

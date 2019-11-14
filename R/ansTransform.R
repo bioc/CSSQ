@@ -31,7 +31,7 @@
 #' sampleInfo <- read.table(system.file("extdata", "sample_info.txt", 
 #' package="CSSQ",mustWork = TRUE),sep="\t",header=TRUE)
 #' exCount <- matrix(c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16),nrow=4,ncol=4)
-#' exData <- SummarizedExperiment(assays = list(list(countData=exCount)),
+#' exData <- SummarizedExperiment(assays = list(countData=exCount),
 #' rowRanges=exRange,colData=sampleInfo)
 #' ansExData <- ansTransform(exData)
 #' assays(ansExData)$ansCount
@@ -45,7 +45,7 @@ ansTransform <- function(countData,noNeg = TRUE,plotData=FALSE) {
     else{
         y <- (2*(sqrt(abs(rawData)+(0))))*(abs(rawData)/rawData);
     }
-    ansCount <- SummarizedExperiment(assays = list(list(ansCount=y)),rowRanges=rowRanges(countData),colData=colData(countData));
+    ansCount <- SummarizedExperiment(assays = list(ansCount=y),rowRanges=rowRanges(countData),colData=colData(countData));
     if (plotData == TRUE){
     tmp <- vapply(seq_len(nrow(colData(countData))), function(x) plotDist(assays(countData)$countData[,x],assays(ansCount)$ansCount[,x],as.character(colData(countData)[,1][x])),integer(1));
     }
