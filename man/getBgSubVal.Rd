@@ -40,19 +40,19 @@ length and depth normalization if applicable. When FALSE, no background
 subtraction will be performed.}
 
 \item{countMode}{Count method passed on to 
-\code{\link[GenomicAlignments]{summarizeOverlaps}}
+summarizeOverlaps from GenomicAlignments package.
 (\code{"Union"}, \code{"IntersectionNotEmpty"}, \code{"IntersectionStrict"} 
 or \code{"user supplied function"}).}
 
 \item{ignore.strand}{A logical indicating if strand should be considered 
 when matching. 
-Passed on to \code{\link[GenomicAlignments]{summarizeOverlaps}}.}
+Passed on to summarizeOverlaps from GenomicAlignments package.}
 
 \item{inter.feature}{A logical indicating if the `r countMode` should be 
 aware of overlapping features. When TRUE, reads mapping to multiple 
 features are dropped (i.e., not counted). When FALSE (default), these reads
 are retained and a count is assigned to each feature they map to. Passed on 
-to \code{\link[GenomicAlignments]{summarizeOverlaps}}.}
+to summarizeOverlaps from GenomicAlignments package.}
 }
 \value{
 A vector containing the counts for all the regions.
