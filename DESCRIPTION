@@ -1,6 +1,6 @@
 Package: CSSQ
 Title: Chip-seq Signal Quantifier Pipeline
-Version: 0.99.2
+Version: 0.99.3
 Authors@R: 
     person(given = "Ashwath",
            family = "Kumar",
@@ -18,4 +18,4 @@ Imports: GenomicAlignments, GenomicFeatures, Rsamtools, ggplot2, grDevices, stat
 Suggests: BiocStyle, knitr, rmarkdown
 VignetteBuilder: knitr
 LazyData: true
-RoxygenNote: 6.1.99.9001
+RoxygenNote: 7.0.0

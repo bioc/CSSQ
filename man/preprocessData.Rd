@@ -4,9 +4,16 @@
 \alias{preprocessData}
 \title{Wrapper function to preprocess the data}
 \usage{
-preprocessData(inputRegions, sampleInfoFile, sampleDir = ".",
-  inputCountData = "None", numClusters = 4, noNeg = TRUE,
-  plotData = FALSE, ...)
+preprocessData(
+  inputRegions,
+  sampleInfoFile,
+  sampleDir = ".",
+  inputCountData = "None",
+  numClusters = 4,
+  noNeg = TRUE,
+  plotData = FALSE,
+  ...
+)
 }
 \arguments{
 \item{inputRegions}{A bed file with the regions to analyze.}

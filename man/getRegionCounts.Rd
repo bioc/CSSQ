@@ -4,8 +4,13 @@
 \alias{getRegionCounts}
 \title{Quantify region level count data}
 \usage{
-getRegionCounts(regionBed, sampleInfo, sampleDir = ".",
-  backgroundSubtract = TRUE, ...)
+getRegionCounts(
+  regionBed,
+  sampleInfo,
+  sampleDir = ".",
+  backgroundSubtract = TRUE,
+  ...
+)
 }
 \arguments{
 \item{regionBed}{A bed file containing the list of regions that are being 

@@ -4,9 +4,16 @@
 \alias{getBgSubVal}
 \title{Perform quantification and normalization of count data}
 \usage{
-getBgSubVal(analysisInfo, sampleIndex, normalizeReadDepth = TRUE,
-  normalizeLength = FALSE, backgroundSubtract = TRUE,
-  countMode = "Union", ignore.strand = TRUE, inter.feature = FALSE)
+getBgSubVal(
+  analysisInfo,
+  sampleIndex,
+  normalizeReadDepth = TRUE,
+  normalizeLength = FALSE,
+  backgroundSubtract = TRUE,
+  countMode = "Union",
+  ignore.strand = TRUE,
+  inter.feature = FALSE
+)
 }
 \arguments{
 \item{analysisInfo}{A 
