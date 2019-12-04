@@ -11,7 +11,7 @@ normalizeData(ansData, numClusters = 4)
 from \code{\link{ansTransform}}.}
 
 \item{numClusters}{A number indicating the number of clusters to use for 
-k-means clustering.}
+k-means clustering. (default: 4)}
 }
 \value{
 \code{\link[SummarizedExperiment]{RangedSummarizedExperiment-class}}
@@ -23,12 +23,12 @@ the sample.
 This function iterates over \code{\link{kmeansNormalize}} to perform 
 normalization for all samples in the dataset. It returns an 
 \code{\link[SummarizedExperiment]{RangedSummarizedExperiment-class}} 
-object with normalized counts, cluster information and the variance of that 
+object  normalized counts, cluster information and the variance of that 
 cluster for that sample.
 }
 \examples{
 exRange <- GRanges(seqnames=c("chr1","chr2","chr3","chr4"),
-ranges=IRanges(start=c(1000,2000,3000,4000),end=c(1500,2500,3500,4500)));
+ranges=IRanges(start=c(1000,2000,3000,4000),end=c(1500,2500,3500,4500)))
 sampleInfo <- read.table(system.file("extdata", "sample_info.txt", 
 package="CSSQ",mustWork = TRUE),sep="\\t",header=TRUE)
 exCount <- matrix(c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16),nrow=4,ncol=4)

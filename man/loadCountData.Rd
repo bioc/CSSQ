@@ -8,7 +8,7 @@ loadCountData(countFile, regionBed, sampleInfo)
 }
 \arguments{
 \item{countFile}{A path to file containing the count data for the dataset. 
-This should be a tab separated file with sample names as header.}
+This should be a tab separated file  sample names as header.}
 
 \item{regionBed}{A bed file containing the list of regions that are being 
 analyzed.}
@@ -23,7 +23,7 @@ the region information,
 sample information and the count data.
 }
 \description{
-It converts input count file and a bed file with regions 
+It converts input count file and a bed file  regions 
 into a  \code{\link[SummarizedExperiment]{RangedSummarizedExperiment-class}}
 object.
 }

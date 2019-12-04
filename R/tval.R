@@ -21,16 +21,16 @@
 
 
 calculateTvalue <- function(preprocessedData,label,comparison,numSamples){
-    norm_data <- assays(preprocessedData)$normCount;
-    var_data <- assays(preprocessedData)$varData;
-    colnames(norm_data) <- label;
-    colnames(var_data) <- label;
-    restrucNormData <- cbind(norm_data[,names(norm_data) %in% (comparison[1])],norm_data[,names(norm_data) %in% (comparison[2])]);
-    restrucVarMatrix <- cbind(var_data[,names(var_data) %in% (comparison[1])],var_data[,names(var_data) %in% (comparison[2])]);
-    group1MeanVar <- rowMeans(restrucVarMatrix[,seq_len(numSamples/2)]);
-    group2MeanVar <- rowMeans(restrucVarMatrix[,((numSamples/2)+1):ncol(restrucVarMatrix)]);
-    denom <- sqrt(group1MeanVar/(numSamples/2) + group2MeanVar/(numSamples/2));
-    combDT <- cbind(restrucNormData,denom);
-    tstat <- apply(combDT,1,function(x) ((mean(x[seq_len(numSamples/2)])- mean(x[seq(((numSamples/2)+1),numSamples)]))/x[length(x)]));
-    return(tstat);
+    norm_data <- assays(preprocessedData)$normCount
+    var_data <- assays(preprocessedData)$varData
+    colnames(norm_data) <- label
+    colnames(var_data) <- label
+    restrucNormData <- cbind(norm_data[,names(norm_data) %in% (comparison[1])],norm_data[,names(norm_data) %in% (comparison[2])])
+    restrucVarMatrix <- cbind(var_data[,names(var_data) %in% (comparison[1])],var_data[,names(var_data) %in% (comparison[2])])
+    group1MeanVar <- rowMeans(restrucVarMatrix[,seq_len(numSamples/2)])
+    group2MeanVar <- rowMeans(restrucVarMatrix[,((numSamples/2)+1):ncol(restrucVarMatrix)])
+    denom <- sqrt(group1MeanVar/(numSamples/2) + group2MeanVar/(numSamples/2))
+    combDT <- cbind(restrucNormData,denom)
+    tstat <- apply(combDT,1,function(x) ((mean(x[seq_len(numSamples/2)])- mean(x[seq(((numSamples/2)+1),numSamples)]))/x[length(x)]))
+    return(tstat)
 }

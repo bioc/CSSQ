@@ -96,7 +96,7 @@ For convenience, most of the above steps are wrapped in `preprocessData` functio
 
 ```{r}
 #To let CSSQ calculate the counts
-processedData <- preprocessData(system.file("extdata", "chr19_regions.bed", package="CSSQ"),system.file("extdata", "sample_info.txt", package="CSSQ"),sampleDir = system.file("extdata", package="CSSQ"),inputCountData = "None",numClusters=4,noNeg=TRUE,plotData=FALSE)
+processedData <- preprocessData(system.file("extdata", "chr19_regions.bed", package="CSSQ"),system.file("extdata", "sample_info.txt", package="CSSQ"),sampleDir = system.file("extdata", package="CSSQ"),numClusters=4,noNeg=TRUE,plotData=FALSE)
 #To provide CSSQ with the counts 
 processedData <- preprocessData(system.file("extdata", "chr19_regions.bed", package="CSSQ"),system.file("extdata", "sample_info.txt", package="CSSQ"),inputCountData = system.file("extdata", "sample_count_data.txt", package="CSSQ",mustWork = TRUE),numClusters=4,noNeg=TRUE,plotData=FALSE)
 #To find differential binding sites

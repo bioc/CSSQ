@@ -12,12 +12,12 @@
 #' When TRUE (default), all negative values will be moved to 0 before 
 #' transforming. 
 #' When FALSE, the signs will be maintained while the transformation will be 
-#' applied to the absolute value. 
-#' @param plotData A logical parameter indicating whether to make plots of the
-#' data distribution.
+#' applied to the absolute value. (default: TRUE) 
+#' @param plotDataToPDF A logical parameter indicating whether to make plots of the
+#' data distribution to a separate PDF file for each sample.
 #' When TRUE, a histogram will be plotted for the data before and after 
 #' transformation. 
-#' When FALSE (default), no plots will be made. 
+#' When FALSE, no plots will be made. (default: FALSE)
 #' 
 #' @return A 
 #' \code{\link[SummarizedExperiment]{RangedSummarizedExperiment-class}} object 
@@ -27,7 +27,7 @@
 #' @export
 #' @examples
 #' exRange <- GRanges(seqnames=c("chr1","chr2","chr3","chr4"),
-#' ranges=IRanges(start=c(1000,2000,3000,4000),end=c(1500,2500,3500,4500)));
+#' ranges=IRanges(start=c(1000,2000,3000,4000),end=c(1500,2500,3500,4500)))
 #' sampleInfo <- read.table(system.file("extdata", "sample_info.txt", 
 #' package="CSSQ",mustWork = TRUE),sep="\t",header=TRUE)
 #' exCount <- matrix(c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16),nrow=4,ncol=4)
@@ -36,18 +36,18 @@
 #' ansExData <- ansTransform(exData)
 #' assays(ansExData)$ansCount
 
-ansTransform <- function(countData,noNeg = TRUE,plotData=FALSE) {
-    rawData <- assays(countData)$countData;
+ansTransform <- function(countData,noNeg = TRUE,plotDataToPDF=FALSE) {
+    rawData <- assays(countData)$countData
     if (noNeg == TRUE){
-        rawData[rawData <0] <- 0;
-        y <- 2*(sqrt(rawData+(3/8)));
+        rawData[rawData <0] <- 0
+        y <- 2*(sqrt(rawData+(3/8)))
     }
     else{
-        y <- (2*(sqrt(abs(rawData)+(0))))*(abs(rawData)/rawData);
+        y <- (2*(sqrt(abs(rawData)+(0))))*(abs(rawData)/rawData)
     }
-    ansCount <- SummarizedExperiment(assays = list(ansCount=y),rowRanges=rowRanges(countData),colData=colData(countData));
-    if (plotData == TRUE){
-    tmp <- vapply(seq_len(nrow(colData(countData))), function(x) plotDist(assays(countData)$countData[,x],assays(ansCount)$ansCount[,x],as.character(colData(countData)[,1][x])),integer(1));
+    ansCount <- SummarizedExperiment(assays = list(ansCount=y),rowRanges=rowRanges(countData),colData=colData(countData))
+    if (plotDataToPDF == TRUE){
+    tmp <- vapply(seq_len(nrow(colData(countData))), function(x) plotDist(countData,ansCount,as.character(colData(countData)[,1][x]),plotDataToPDF=TRUE),integer(1))
     }
-    return(ansCount);
+    return(ansCount)
 }

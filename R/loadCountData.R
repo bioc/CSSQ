@@ -1,11 +1,11 @@
 #' Load count data from input file. 
 #'
-#' It converts input count file and a bed file with regions 
+#' It converts input count file and a bed file  regions 
 #' into a  \code{\link[SummarizedExperiment]{RangedSummarizedExperiment-class}}
 #' object. 
 #' 
 #' @param countFile A path to file containing the count data for the dataset. 
-#' This should be a tab separated file with sample names as header. 
+#' This should be a tab separated file  sample names as header. 
 #' @param regionBed A bed file containing the list of regions that are being 
 #' analyzed.
 #' @param sampleInfo Object from \code{\link{preprocessData}} containing sample
@@ -20,6 +20,7 @@
 #' @import SummarizedExperiment
 #' @importFrom utils read.table
 #' @import IRanges
+#' @import rtracklayer
 #' @export
 #' @examples
 #' countData <- loadCountData(system.file("extdata", "sample_count_data.txt", 
@@ -31,9 +32,8 @@
 #' countData
 
 loadCountData <- function(countFile,regionBed,sampleInfo) {
-    regionList <- read.table(regionBed);
-    regionRange <- GRanges(seqnames=regionList$V1,ranges=IRanges(start=regionList$V2,end=regionList$V3));
-    countData <- read.table(countFile,sep="\t",header=TRUE);
-    analysisInfo <- SummarizedExperiment(assays = list(countData=countData),rowRanges=regionRange,colData=sampleInfo);
-    return(analysisInfo);
+    regionRange <- import(regionBed,format="BED")
+    countData <- read.table(countFile,sep="\t",header=TRUE)
+    analysisInfo <- SummarizedExperiment(assays = list(countData=countData),rowRanges=regionRange,colData=sampleInfo)
+    return(analysisInfo)
 }

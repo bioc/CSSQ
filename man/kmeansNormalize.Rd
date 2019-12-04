@@ -11,7 +11,7 @@ kmeansNormalize(ansDataVec, numClusters = 4)
 \item{ansDataVec}{Anscombe transformed count data for a sample.}
 
 \item{numClusters}{A number indicating the number of clusters to use for 
-k-means clustering.}
+k-means clustering. (default: 4)}
 }
 \value{
 DataFrame containing the normalized counts, 
@@ -20,7 +20,7 @@ DataFrame containing the normalized counts,
 \description{
 This function performs normalization on the anscombe transformed data by
 clustering them using k-means algorithmn and utilizing the information from
-clusters. It returns an DataFrame object with normalized counts,
+clusters. It returns an DataFrame object  normalized counts,
 cluster information and the variance of that cluster for that sample.
 }
 \examples{

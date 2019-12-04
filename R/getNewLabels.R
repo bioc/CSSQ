@@ -17,7 +17,7 @@
 #' 
 
 getNewLabels <- function(trueLabel,comparison,numSamples,combns,index){
-    newLabel <- rep (comparison[1],numSamples);
-    newLabel[combns[,index]] <- comparison[2];
-    return(newLabel);
+    newLabel <- rep (comparison[1],numSamples)
+    newLabel[combns[,index]] <- comparison[2]
+    return(newLabel)
 }

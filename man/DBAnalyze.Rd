@@ -4,7 +4,7 @@
 \alias{DBAnalyze}
 \title{Performs differential binding analysis}
 \usage{
-DBAnalyze(preprocessedData, comparison = c())
+DBAnalyze(preprocessedData, comparison)
 }
 \arguments{
 \item{preprocessedData}{A 
@@ -28,7 +28,7 @@ Fold change for each region.
 }
 \examples{
 exRange <- GRanges(seqnames=c("chr1","chr2","chr3","chr4"),
-ranges=IRanges(start=c(1000,2000,3000,4000),end=c(1500,2500,3500,4500)));
+ranges=IRanges(start=c(1000,2000,3000,4000),end=c(1500,2500,3500,4500)))
 sampleInfo <- read.table(system.file("extdata", "sample_info.txt", 
 package="CSSQ",mustWork = TRUE),sep="\\t",header=TRUE)
 exCount <- matrix(c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16),nrow=4,ncol=4)

@@ -4,7 +4,7 @@
 \alias{ansTransform}
 \title{Perform quantification and normalization of count data}
 \usage{
-ansTransform(countData, noNeg = TRUE, plotData = FALSE)
+ansTransform(countData, noNeg = TRUE, plotDataToPDF = FALSE)
 }
 \arguments{
 \item{countData}{A 
@@ -16,13 +16,13 @@ values.
 When TRUE (default), all negative values will be moved to 0 before 
 transforming. 
 When FALSE, the signs will be maintained while the transformation will be 
-applied to the absolute value.}
+applied to the absolute value. (default: TRUE)}
 
-\item{plotData}{A logical parameter indicating whether to make plots of the
-data distribution.
+\item{plotDataToPDF}{A logical parameter indicating whether to make plots of the
+data distribution to a separate PDF file for each sample.
 When TRUE, a histogram will be plotted for the data before and after 
 transformation. 
-When FALSE (default), no plots will be made.}
+When FALSE, no plots will be made. (default: FALSE)}
 }
 \value{
 A 
@@ -36,7 +36,7 @@ Returns a vector of count information for the input regions.
 }
 \examples{
 exRange <- GRanges(seqnames=c("chr1","chr2","chr3","chr4"),
-ranges=IRanges(start=c(1000,2000,3000,4000),end=c(1500,2500,3500,4500)));
+ranges=IRanges(start=c(1000,2000,3000,4000),end=c(1500,2500,3500,4500)))
 sampleInfo <- read.table(system.file("extdata", "sample_info.txt", 
 package="CSSQ",mustWork = TRUE),sep="\\t",header=TRUE)
 exCount <- matrix(c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16),nrow=4,ncol=4)

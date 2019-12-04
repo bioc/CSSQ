@@ -26,33 +26,33 @@ object with regions and sample information from within
 \item{normalizeReadDepth}{Logical indicating if count data should be 
 normalized for library sequencing depth. When TRUE (default), counts will 
 be normalized for sequencing depth for each library. When FALSE, no such 
-normalization will be performed and raw counts will be used.}
+normalization will be performed and raw counts will be used. (default: TRUE)}
 
 \item{normalizeLength}{Logical indicating if count data should be 
 normalized to the length of the regions. When TRUE, count data will be 
 normalized for the length of the region being analyzed. 
-When FALSE (default), no such normalization will be performed.}
+When FALSE (default), no such normalization will be performed. (default: FALSE)}
 
 \item{backgroundSubtract}{Logical indicating if background correction 
 should be performed.
 When TRUE (default), background subtraction will be performed after 
 length and depth normalization if applicable. When FALSE, no background 
-subtraction will be performed.}
+subtraction will be performed. (default: TRUE)}
 
 \item{countMode}{Count method passed on to 
 summarizeOverlaps from GenomicAlignments package.
 (\code{"Union"}, \code{"IntersectionNotEmpty"}, \code{"IntersectionStrict"} 
-or \code{"user supplied function"}).}
+or \code{"user supplied function"}). (default: "Union")}
 
 \item{ignore.strand}{A logical indicating if strand should be considered 
-when matching. 
+when matching. (default: TRUE)
 Passed on to summarizeOverlaps from GenomicAlignments package.}
 
 \item{inter.feature}{A logical indicating if the `r countMode` should be 
 aware of overlapping features. When TRUE, reads mapping to multiple 
 features are dropped (i.e., not counted). When FALSE (default), these reads
 are retained and a count is assigned to each feature they map to. Passed on 
-to summarizeOverlaps from GenomicAlignments package.}
+to summarizeOverlaps from GenomicAlignments package. (default: FALSE)}
 }
 \value{
 A vector containing the counts for all the regions.
@@ -72,7 +72,7 @@ function(x) system.file("extdata", x, package="CSSQ"))
 sampleInfo[,5] <- sapply(sampleInfo[,5], 
 function(x) system.file("extdata", x, package="CSSQ"))
 regionRange <- GRanges(seqnames=regionBed$V1,
-ranges=IRanges(start=regionBed$V2,end=regionBed$V3));
+ranges=IRanges(start=regionBed$V2,end=regionBed$V3))
 analysisInfo <- SummarizedExperiment(rowRanges=regionRange,
 colData=sampleInfo)
 NormbgSubCounts <- data.frame(sapply(c(1:nrow(colData(analysisInfo))),

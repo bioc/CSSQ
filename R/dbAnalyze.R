@@ -21,7 +21,7 @@
 #' @export
 #' @examples
 #' exRange <- GRanges(seqnames=c("chr1","chr2","chr3","chr4"),
-#' ranges=IRanges(start=c(1000,2000,3000,4000),end=c(1500,2500,3500,4500)));
+#' ranges=IRanges(start=c(1000,2000,3000,4000),end=c(1500,2500,3500,4500)))
 #' sampleInfo <- read.table(system.file("extdata", "sample_info.txt", 
 #' package="CSSQ",mustWork = TRUE),sep="\t",header=TRUE)
 #' exCount <- matrix(c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16),nrow=4,ncol=4)
@@ -31,14 +31,15 @@
 #' res <- DBAnalyze(normExData,comparison=c("HSMM","HESC"))
 #' res
 
-DBAnalyze <- function(preprocessedData,comparison=c()){
-    numSamples <- nrow(colData(preprocessedData));
-    otherComparisons <- getComparisons(colData(preprocessedData)[,2],comparison,numSamples);
-    trueTstat <- calculateTvalue(preprocessedData,label = colData(preprocessedData)[,2],comparison,numSamples);
-    trueFC <- calculateFC(preprocessedData,label = colData(preprocessedData)[,2],comparison,numSamples);
-    compare_tstats <- vapply(seq_len(ncol(otherComparisons)), function(x) calculateTvalue(preprocessedData,label=otherComparisons[,x],comparison,numSamples),double(length(rowRanges(preprocessedData))));
-    adjPval <- calculatePvalue(trueTstat,compare_tstats);
-    regionRange <- rowRanges(preprocessedData);
-    values(regionRange) <- cbind(values(regionRange),DataFrame(adj.pval = adjPval),DataFrame(trueFC));
-    return(regionRange);
+DBAnalyze <- function(preprocessedData,comparison){
+    if (missing(comparison)){stop("No \"comparison\" parameter provided")}
+    numSamples <- nrow(colData(preprocessedData))
+    otherComparisons <- getComparisons(colData(preprocessedData)[,2],comparison,numSamples)
+    trueTstat <- calculateTvalue(preprocessedData,label = colData(preprocessedData)[,2],comparison,numSamples)
+    trueFC <- calculateFC(preprocessedData,label = colData(preprocessedData)[,2],comparison,numSamples)
+    compare_tstats <- vapply(seq_len(ncol(otherComparisons)), function(x) calculateTvalue(preprocessedData,label=otherComparisons[,x],comparison,numSamples),double(length(rowRanges(preprocessedData))))
+    adjPval <- calculatePvalue(trueTstat,compare_tstats)
+    regionRange <- rowRanges(preprocessedData)
+    values(regionRange) <- cbind(values(regionRange),DataFrame(adj.pval = adjPval),DataFrame(trueFC))
+    return(regionRange)
 }

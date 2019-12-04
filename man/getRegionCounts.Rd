@@ -19,10 +19,11 @@ analyzed.}
 \item{sampleInfo}{Object from \code{\link{preprocessData}} containing 
 sample information.}
 
-\item{sampleDir}{Location of the input sample files in `sampleInfo` file.}
+\item{sampleDir}{Location of the input sample files in `sampleInfo` file.
+(default: ".")}
 
 \item{backgroundSubtract}{Logical indicating if background correction 
-should be performed .}
+should be performed. (default: TRUE)}
 
 \item{...}{Additional arguments passed on to \code{\link{getBgSubVal}}.}
 }

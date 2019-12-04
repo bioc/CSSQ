@@ -19,8 +19,8 @@
 #' @importFrom utils combn
 
 getComparisons <- function(trueLabel,comparison,numSamples){
-    combns <- combn(seq_len(numSamples),numSamples/2);
-    allLabels <- data.frame(vapply(seq_len(ncol(combns)/2),function(x) getNewLabels(trueLabel,comparison,numSamples,combns,x),character(numSamples)));
-    returnLabels <- allLabels[,vapply(seq_len(ncol(allLabels)), function(x) !all(allLabels[,x] == trueLabel),logical(1))];
-    return(returnLabels);
+    combns <- combn(seq_len(numSamples),numSamples/2)
+    allLabels <- data.frame(vapply(seq_len(ncol(combns)/2),function(x) getNewLabels(trueLabel,comparison,numSamples,combns,x),character(numSamples)))
+    returnLabels <- allLabels[,vapply(seq_len(ncol(allLabels)), function(x) !all(allLabels[,x] == trueLabel),logical(1))]
+    return(returnLabels)
 }

@@ -20,10 +20,10 @@
 #' @keywords internal
 
 calculateFC <- function(preprocessedData,label,comparison,numSamples){
-    norm_data <- assays(preprocessedData)$normCount;
-    colnames(norm_data) <- label;
-    restrucNormData <- cbind(norm_data[,names(norm_data) %in% (comparison[1])],norm_data[,names(norm_data) %in% (comparison[2])]);
-    FC <- data.frame(apply(restrucNormData,1,function(x) (mean(x[seq_len(numSamples/2)]) / mean(x[seq(((numSamples/2)+1),numSamples)]))));
-    colnames(FC)<- "FC";
-    return(FC);
+    norm_data <- assays(preprocessedData)$normCount
+    colnames(norm_data) <- label
+    restrucNormData <- cbind(norm_data[,names(norm_data) %in% (comparison[1])],norm_data[,names(norm_data) %in% (comparison[2])])
+    FC <- data.frame(apply(restrucNormData,1,function(x) (mean(x[seq_len(numSamples/2)]) / mean(x[seq(((numSamples/2)+1),numSamples)]))))
+    colnames(FC)<- "FC"
+    return(FC)
 }

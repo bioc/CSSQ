@@ -15,10 +15,10 @@
 
 
 calculatePvalue <- function(trueTstat,compare_tstats){
-    abs_compare_tstats <- abs(compare_tstats);
-    num_higher <- vapply(abs(trueTstat),function(x) (sum(abs_compare_tstats > x)),integer(1));
-    numCompare <- ncol(compare_tstats);
-    pval <- num_higher/(length(trueTstat) * numCompare);
-    adjpval <- p.adjust(pval,method="BH",length(pval));
-    return(adjpval);
+    abs_compare_tstats <- abs(compare_tstats)
+    num_higher <- vapply(abs(trueTstat),function(x) (sum(abs_compare_tstats > x)),integer(1))
+    numCompare <- ncol(compare_tstats)
+    pval <- num_higher/(length(trueTstat) * numCompare)
+    adjpval <- p.adjust(pval,method="BH",length(pval))
+    return(adjpval)
 }

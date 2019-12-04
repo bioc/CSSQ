@@ -8,17 +8,17 @@ preprocessData(
   inputRegions,
   sampleInfoFile,
   sampleDir = ".",
-  inputCountData = "None",
+  inputCountData,
   numClusters = 4,
   noNeg = TRUE,
-  plotData = FALSE,
+  plotDataToPDF = FALSE,
   ...
 )
 }
 \arguments{
-\item{inputRegions}{A bed file with the regions to analyze.}
+\item{inputRegions}{A bed file  the regions to analyze.}
 
-\item{sampleInfoFile}{A tab separated file with all sample information. 
+\item{sampleInfoFile}{A tab separated file  all sample information. 
 The following are the columns that are present in the file. 
 * Sample Name : Names for the samples. 
 * Group : The group the sample belongs.
@@ -29,22 +29,26 @@ in depth normalization process.
 * IN_aligned_reads : The number of aligned reads in the control file. This 
 is used in depth normalization process.}
 
-\item{sampleDir}{Location of the input sample files in `sampleInfoFile` file. 
+\item{sampleDir}{Location of the input sample files in `sampleInfoFile` file.
+(default: ".")
 Name,Group/Label,IP bam location,IP number of reads,IN bam location,
 IN number of reads).}
 
-\item{inputCountData}{The path to the file with count data. This parameter 
+\item{inputCountData}{The path to the file  count data. This parameter 
 is used when directly loading count data from a file. This should be a tab 
-separated file with sample names as header.}
+separated file  sample names as header.}
 
 \item{numClusters}{A numerical parameter indicating the number of clusters 
-to use in the normalization step. Passed on to \code{\link{normalizeData}}.}
+to use in the normalization step. Passed on to \code{\link{normalizeData}}.
+(default: 4)}
 
-\item{noNeg}{A logical parameter indicating how to deal with negative 
-values. It is passed to \code{\link{ansTransform}}.}
+\item{noNeg}{A logical parameter indicating how to deal  negative 
+values. It is passed to \code{\link{ansTransform}}. (default: TRUE)}
 
-\item{plotData}{A logical parameter indicating whether to make plots of the 
-data distribution. It is passed on to passed to \code{\link{ansTransform}}.}
+\item{plotDataToPDF}{A logical parameter indicating whether to make plots of the 
+data distribution to a separate PDF file for each sample.
+It is passed on to passed to \code{\link{ansTransform}}.
+(default: FALSE)}
 
 \item{...}{Additional arguments passed on to \code{\link{getRegionCounts}}.}
 }
@@ -57,14 +61,14 @@ cluster in the sample and metadata.
 This is a wrapper function that calls the functions to preprocess the data.
 It results in a 
 \code{\link[SummarizedExperiment]{RangedSummarizedExperiment-class}} object
-with normalized counts and meta data that can be used by  
+ normalized counts and meta data that can be used by  
 \code{\link{DBAnalyze}}.
 }
 \examples{
 processedData <- preprocessData(system.file("extdata", "chr19_regions.bed",
 package="CSSQ"),system.file("extdata", "sample_info.txt", package="CSSQ"),
 sampleDir = system.file("extdata", package="CSSQ"),
-inputCountData = "None",numClusters=4,noNeg=TRUE,plotData=FALSE)
+numClusters=4,noNeg=TRUE,plotDataToPDF=FALSE)
 processedData
 }
 \seealso{
