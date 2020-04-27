@@ -1,6 +1,6 @@
 Package: CSSQ
 Title: Chip-seq Signal Quantifier Pipeline
-Version: 1.0.0
+Version: 1.1.0
 Authors@R: 
     person(given = "Ashwath",
            family = "Kumar",
