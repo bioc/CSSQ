@@ -16,6 +16,7 @@ Authors@R:
            role = c("aut"),
            email = "yajun.mei@isye.gatech.edu"))
 
+
 Description: This package is desgined to perform statistical analysis to
     identify statistically significant differentially bound regions between
     multiple groups of ChIP-seq dataset. 
