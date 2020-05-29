@@ -1,6 +1,6 @@
 Package: CSSQ
 Title: Chip-seq Signal Quantifier Pipeline
-Version: 1.1.1
+Version: 1.0.1
 Author: Ashwath Kumar [aut], Yuhong Fan [aut], Yajun Mei [aut]
 
 Maintainer: Fan Lab at Georgia Institute of Technology <akumar301@gatech.edu>
