@@ -2,11 +2,20 @@ Package: CSSQ
 Title: Chip-seq Signal Quantifier Pipeline
 Version: 1.1.0
 Authors@R: 
-    person(given = "Ashwath",
+    c(person(given = "Ashwath",
            family = "Kumar",
            role = c("aut", "cre"),
            email = "akumar301@gatech.edu",
-           comment = c(ORCID = "0000-0001-9106-6715"))
+           comment = c(ORCID = "0000-0001-9106-6715")),
+    person(given = "Yuhong",
+           family = "Fan",
+           role = c("aut"),
+           email = "yuhong.fan@biology.gatech.edu"),
+    person(given = "Yajun",
+           family = "Mei",
+           role = c("aut"),
+           email = "yajun.mei@isye.gatech.edu"))
+
 Description: This package is desgined to perform statistical analysis to
     identify statistically significant differentially bound regions between
     multiple groups of ChIP-seq dataset. 
