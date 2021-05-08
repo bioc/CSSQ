@@ -40,12 +40,16 @@ ansTransform <- function(countData,noNeg = TRUE,plotDataToPDF=FALSE) {
     rawData <- assays(countData)$countData
     if (noNeg == TRUE){
         rawData[rawData <0] <- 0
+		newRowRanges <- rowRanges(countData)[apply(rawData, 1, function(x) !all(x==0)),]
+		rawData <- rawData[apply(rawData, 1, function(x) !all(x==0)),]
         y <- 2*(sqrt(rawData+(3/8)))
+		ansCount <- SummarizedExperiment(assays = list(ansCount=y),rowRanges=newRowRanges,colData=colData(countData))
     }
     else{
         y <- (2*(sqrt(abs(rawData)+(0))))*(abs(rawData)/rawData)
+		ansCount <- SummarizedExperiment(assays = list(ansCount=y),rowRanges=rowRanges(countData),colData=colData(countData))
     }
-    ansCount <- SummarizedExperiment(assays = list(ansCount=y),rowRanges=rowRanges(countData),colData=colData(countData))
+    
     if (plotDataToPDF == TRUE){
     tmp <- vapply(seq_len(nrow(colData(countData))), function(x) plotDist(countData,ansCount,as.character(colData(countData)[,1][x]),plotDataToPDF=TRUE),integer(1))
     }
