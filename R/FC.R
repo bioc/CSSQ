@@ -23,7 +23,9 @@ calculateFC <- function(preprocessedData,label,comparison,numSamples){
     norm_data <- assays(preprocessedData)$normCount
     colnames(norm_data) <- label
     restrucNormData <- cbind(norm_data[,names(norm_data) %in% (comparison[1])],norm_data[,names(norm_data) %in% (comparison[2])])
-    FC <- data.frame(apply(restrucNormData,1,function(x) (mean(x[seq_len(numSamples/2)]) / mean(x[seq(((numSamples/2)+1),numSamples)]))))
+    FC <- data.frame(apply(restrucNormData,1,function(x) ifelse(mean(x[seq_len(numSamples/2)]) > mean(x[seq(((numSamples/2)+1),numSamples)]), mean(x[seq_len(numSamples/2)]) / mean(x[seq(((numSamples/2)+1),numSamples)]), -1*(mean(x[seq(((numSamples/2)+1),numSamples)])/mean(x[seq_len(numSamples/2)])))))
     colnames(FC)<- "FC"
     return(FC)
 }
+
+
