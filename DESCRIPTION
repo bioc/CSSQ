@@ -1,6 +1,6 @@
 Package: CSSQ
 Title: Chip-seq Signal Quantifier Pipeline
-Version: 1.5.0
+Version: 1.5.1
 Author: Ashwath Kumar [aut], Michael Y Hu [aut], Yajun Mei [aut], Yuhong Fan [aut]
 Maintainer: Fan Lab at Georgia Institute of Technology <yuhong.fan@biology.gatech.edu>
 Description: This package is desgined to perform statistical analysis to
@@ -11,7 +11,7 @@ Encoding: UTF-8
 biocViews: ChIPSeq, DifferentialPeakCalling,  Sequencing, Normalization
 Depends: SummarizedExperiment, GenomicRanges, IRanges, S4Vectors, rtracklayer
 Imports: GenomicAlignments, GenomicFeatures, Rsamtools, ggplot2, grDevices, stats, utils
-Suggests: BiocStyle, knitr, rmarkdown
+Suggests: BiocStyle, knitr, rmarkdown, markdown
 VignetteBuilder: knitr
 LazyData: true
 RoxygenNote: 7.0.0
