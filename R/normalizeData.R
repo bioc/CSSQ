@@ -39,6 +39,9 @@ normalizeData <- function(ansData,numClusters=4) {
     colnames(clusterData) <- colData(ansData)[,1]
     colnames(normCount) <- colData(ansData)[,1]
     colnames(geneVars) <- colData(ansData)[,1]
+    rownames(clusterData) <- rownames(ansData)
+    rownames(normCount) <- rownames(ansData)
+    rownames(geneVars) <- rownames(ansData)
     normInfo <- SummarizedExperiment(assays = list(normCount=normCount,clusterData=clusterData,varData=geneVars),rowRanges=rowRanges(ansData),colData=colData(ansData))
     return(normInfo)
 }
